@@ -2,6 +2,7 @@ FROM golang:alpine as builder
 RUN mkdir /go/src/app
 ADD . /go/src/app/
 WORKDIR /go/src/app
+RUN go mod init devopslab
 RUN go build -o app .
 RUN chmod +x app
 
@@ -12,5 +13,5 @@ RUN apk update && \
     update-ca-certificates && \
     rm -rf /var/cache/apk/* && \
     apk add curl
-
+EXPOSE 8080
 CMD ["/app"]
